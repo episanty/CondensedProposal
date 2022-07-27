@@ -1,0 +1,516 @@
+%
+%
+
+\documentclass[10pt,a4paper]{article}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage[table]{xcolor}
+\usepackage{lipsum}
+\usepackage{array}
+
+\usepackage{multirow}
+\usepackage{vwcol}
+
+%%%%%% Formatting configuration
+
+%%% Date
+\usepackage[UKenglish]{isodate}
+\cleanlookdateon
+
+
+%%% Page geometry
+\usepackage{geometry}
+\geometry{
+  left=0.56in,
+  right=0.56in,
+  top=22mm,
+  bottom=18mm,
+  headsep=15pt,
+  footskip=2.25em
+  }
+\setlength{\parindent}{0mm}
+\setlength{\parskip}{0.8em}
+
+
+%%% Line and paragraph spacing, and related options
+\setlength\parskip{0.6ex plus 0.1ex minus 0.2ex}
+
+\renewcommand{\baselinestretch}{0.925}
+
+\widowpenalty=0
+\clubpenalty=0
+
+
+%%% Title formatting
+\usepackage{titling}
+%
+\setlength{\droptitle}{-15mm}
+\pretitle{\bfseries\large}
+\posttitle{\vskip -15pt}
+%
+\preauthor{}
+\postauthor{}
+\predate{}
+\postdate{}
+
+
+%%% Headers and footers
+\usepackage{fancyhdr}
+%
+%\fancyhead[R]{\color{gray} Emilio Pisanty $\cdot$ Condensed Research Proposal $\cdot$ \today}
+\fancyhead[L]{}
+\renewcommand{\headrule}{}
+\fancyfoot[C]{\thepage}
+
+%% for production
+\fancyhead[R]{\color{gray} Emilio Pisanty $\cdot$ Condensed Research Proposal}
+
+%%% It can be useful to keep the date in the header when drafting the proposal, though it is probably not a good idea when actually submitting.
+%%% In that case, use the version above, just remember to switch to this one once you're ready to submit.
+
+
+%% Empty header/footer in case it's useful:
+%\fancyhead[R]{}
+%\fancyfoot[C]{}
+
+
+
+
+
+%%% Sections
+\usepackage[explicit]{titlesec}
+\usepackage{ulem} % for underlining
+
+%
+\titleformat{\section}[runin]{\normalfont\bfseries}
+  {WP\hspace{0.08em}\thesection~}{0mm}{#1}[.~]
+\titlespacing*{\section}{0pt}{*0}{3pt}
+%
+\titleformat{\subsection}[runin]{\normalfont\bfseries}
+  {WP\hspace{0.08em}\thesubsection~}{0mm}{#1}[.~]
+%\titlespacing*{\subsection}{0pt}{*0}{3pt}
+\titlespacing*{\subsection}{0pt}{0ex plus 0.01ex}{3pt}
+%
+\titleformat{\subsubsection}[runin]{\normalfont}
+  {}{0mm}{\uline{#1}}[.~]
+\titlespacing*{\subsubsection}{0pt}{*0}{3pt}
+
+
+
+%%% Lists
+\setlist[itemize]{
+  topsep=-5pt,
+  itemsep=-1ex,
+  partopsep=1ex,
+  parsep=1ex,
+%  label={\bfseries--},
+  leftmargin=2.5mm,
+  labelsep=3.5pt
+  }
+\setlist[enumerate]{
+  topsep=-5pt,
+  itemsep=-1ex,
+  partopsep=1ex,
+  parsep=1ex,
+  label={D{\arabic*}.},
+  leftmargin=0mm,
+  labelsep=3.5pt,
+  itemindent=2em
+  }
+
+
+
+%%% Fonts
+\usepackage{ifxetex}
+%
+%% Arial (over XeLaTeX)
+\ifxetex
+\usepackage{fontspec} 
+\setmainfont{Arial}
+%
+%% Cantarell
+\else
+\usepackage[default,scale=0.97]{cantarell}
+\usepackage[T1]{fontenc}
+\fi
+%%%%% Run updmap if the fonts don't work after installation.
+%
+%% Bera sans
+%\usepackage[scaled]{berasans}
+%\renewcommand*\familydefault{\sfdefault}  
+%\usepackage[T1]{fontenc}
+
+
+
+%%% Bibliography
+%
+%% natbib call
+\usepackage[super,sort&compress,comma,numbers]{natbib}
+%% reduce spacing inside [1, 2]:
+%\makeatletter \def\NAT@def@citea{\def\@citea{\NAT@separator\,}} \makeatother
+%% Reduce spacing between references
+\setlength{\bibsep}{0em}
+%% Additional citing commands
+\newcommand{\citer}[1]{Ref.~\citealp{#1}}
+\newcommand{\citers}[1]{Refs.~\citealp{#1}}
+%% Remove [] from the list
+\makeatletter
+\renewcommand\@biblabel[1]{#1.} 
+\makeatother
+%
+%% Remaking the thebibliography environment:
+%%  - switching to two-column
+%%  - trimming the spacings
+\usepackage{multicol}
+\makeatletter
+%
+\renewenvironment{thebibliography}[1]{%
+% \bibsection
+ \parindent\z@
+ \bibpreamble
+   \begin{multicols}{2}
+ \bibfont
+ \list{\@biblabel{\the\c@NAT@ctr}}{
+   \@bibsetup{#1}\global\c@NAT@ctr\z@
+   \setlength{\leftmargin}{\labelwidth}
+%   \setlength{\itemsep}{-1.2pt}
+   \fontsize{9.5}{11.5}\selectfont
+%
+   }%n	
+ \ifNAT@openbib
+   \renewcommand\newblock{\par}%
+ \else
+   \renewcommand\newblock{\hskip .11em \@plus.33em \@minus.07em}%
+ \fi
+ \sloppy\clubpenalty4000\widowpenalty4000
+ \sfcode`\.\@m
+ \let\NAT@bibitem@first@sw\@firstoftwo
+}{%
+ \bibitem@fin
+   \end{multicols}
+ \bibpostamble
+ \def\@noitemerr{%
+  \PackageWarning{natbib}{Empty `thebibliography' environment}%
+ }%
+ \endlist
+ \bibcleanup
+}%
+%
+\makeatother
+
+
+%%% Attempts at highlighting entries
+%%
+%%\usepackage{xstring}
+%%
+%\makeatletter
+%\newcommand*{\IfStringInList}[2]{%
+%  \in@{,#1,}{,#2,}%
+%  \ifin@
+%    \expandafter\@firstoftwo
+%  \else
+%    \expandafter\@secondoftwo
+%  \fi
+%}
+%\makeatother
+%%
+%\makeatletter 
+%%\renewcommand\@biblabel[1]{#1.} 
+%\renewcommand\@biblabel[1]{
+%  \IfStringInList{#1}{pisanty2014,pisanty2016}{\textbf{#1}.}{#1.}
+%  } 
+%\makeatother
+
+
+
+
+
+
+
+
+
+
+
+%%% hyperref
+%
+\usepackage[
+  bookmarks=false,
+  %bookmarks=true,
+  colorlinks,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=black,
+  plainpages=false,
+  pdfpagelabels,
+  final,
+  breaklinks=true
+]{hyperref}
+\hypersetup{
+pdftitle={Project summary}, 
+pdfauthor={Emilio Pisanty}
+}
+
+%%% Metadata
+%
+\title{Condensed Research Proposal}
+\author{}
+\date{}
+
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\maketitle
+\thispagestyle{fancy}
+
+
+
+
+
+This document is a research-proposal template that is highly optimized for information density.
+As such, it is appropriate for calls with a tight page limit and loose requirements on formatting. 
+The result is close to the absolute extreme of tight packing, so use it with care and only when required -- and adjust the spacings to make it breathe as much as you can once the text is finalized.
+
+
+\textbf{I recommend adding a one-line description of the research you are proposing in bold and very early in the text}, which will make it easy to navigate the document at high text densities.
+
+You can then explain a bit about the structure of the document and move on to the Work Packages (WPs).
+
+
+
+
+
+
+
+
+
+
+\section{Sample work package}
+%
+This is a sample work package description including background (including references\cite{krausz2009}) and general plan.
+{\color{gray} \lipsum[1]}
+
+
+
+
+\subsection{Sample sub-work package}
+This is a more concrete description of a specific section of the work.
+{\color{gray} \lipsum[2]}
+
+
+\subsubsection{Objectives}
+Here one can add even more concrete objectives and possible deliverables. 
+Here is a sample list of deliverables:
+
+\begin{itemize}
+
+\item 
+Research task involving research and science.
+
+\item 
+Research task involving research and science.
+
+\item 
+Research task involving research and science.
+
+\end{itemize}
+
+
+
+
+
+
+\subsection{Another sample sub-work package}
+This is a more concrete description of a specific section of the work.
+{\color{gray} \lipsum[2]}
+
+
+\subsubsection{Objectives}
+Here one can add even more concrete objectives and possible deliverables. 
+Here is a sample list of deliverables:
+
+\begin{itemize}
+
+\item 
+Research task involving research and science.
+
+\item 
+Research task involving research and science.
+
+\item 
+Research task involving research and science.
+
+\end{itemize}
+
+
+
+
+
+Here are some additional sections that can be included.
+
+
+
+
+\titleformat{\section}[runin]{\normalfont\bfseries}
+  {}{0mm}{#1}[.~]
+
+
+
+
+\section{Methodology}
+Brief description of the methodological approaches to be used or constructed, if they are not already included in the individual WPs.
+
+
+
+
+\section{Risk analysis}
+Don't forget at least a brief description of the possible risks faced by the proposed research programme and a plan for how those risks can be mitigated
+
+
+
+
+\section{Project management}
+Brief description of how the project will be managed including possible personnel or collaboration structures.
+
+
+
+
+\section{Impact}
+%
+Brief or not-so-brief description of the scientific, technological and/or societal impact of the proposed research.
+
+
+
+
+
+\section{Host support}
+%
+Brief description of the support provided by the Host Institution for the proposed research programme.
+
+
+
+
+
+
+
+
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\newcommand{\gr}{\cellcolor{gray!25}}
+%
+\begin{figure}[h]
+\footnotesize
+\begin{vwcol}[widths={11.3cm,56mm}, sep=5mm, justify=flush, rule=0pt, indent=1em] 
+%\lipsum[1-8] 
+\setlength{\tabcolsep}{0pt}
+\begin{tabular}{|M{12mm}|*{20}{m{5mm}|}}
+\hline
+\rowcolor{gray!25} Year 
+ & \multicolumn{4}{c|}{1}
+ & \multicolumn{4}{c|}{2}
+ & \multicolumn{4}{c|}{3}
+ & \multicolumn{4}{c|}{4}
+ & \multicolumn{4}{c|}{5}
+\\ \hline
+\gr WP1.1
+& \gr & \gr & &    & & & &    & & & &    & & & &    & & & & \\ \hline
+\gr WP1.2
+& & & \gr & \gr    & & & &    & & & &    & & & &    & & & & \\ \hline
+\gr WP2.1
+& & & \gr & \gr    & & & &    & & & &    & & & &    & & & & \\ \hline
+\gr WP2.2
+& & & \gr & \gr    & & & &    & & & &    & & & &    & & & & \\ \hline
+\gr WP3.1
+& & & \gr & \gr    & & & &    & & & &    & & & &    & & & & \\ \hline
+\gr WP3.2
+& & & \gr & \gr    & & & &    & & & &    & & & &    & & & & \\ \hline
+\end{tabular}
+%
+\newpage
+%
+\begin{minipage}{55mm}
+\normalsize{\color{gray}
+Depending on the requirements (read: \textit{if}~you really need one) you can include a Gantt chart describing a planned timetable.
+In that case, this rough template could be useful.
+}
+\end{minipage}
+\end{vwcol} 
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\renewcommand{\emph}[1]{\textit{#1}}
+
+\section*{References}{ 
+Sample reference list with ultra-condensed format.
+If your application form contains a list of your publications, it is worth figuring out a format like\textsuperscript{A1} (for `Author') so that they do not take up space here.
+}
+\vspace{-10pt}
+%
+\bibliographystyle{arthurUltraShort} 
+\bibliography{references}{}
+
+
+
+%\end{document}
+
+%%% Reminder: remove the date from the header before submission (if appropriate).
+
+
+
+\newpage
+
+\setlength{\parskip}{1.em}
+
+\fontsize{12pt}{14pt}
+\selectfont
+
+
+
+
+
+{
+\color{gray}
+\section*{Appendix}$\ $
+
+Additional questions.
+
+400 words
+
+}
+
+%$\ $
+
+%\newpage
+
+If the application procedure includes an online form in addition to the actual proposal document, it can be useful to draft the responses to the form fields together with the proposal document.
+
+If that is the case, you can use this space for that purpose. Just remember to eliminate this section when getting ready to submit by un-commenting the \verb|\end{document}| between the main text and here.
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
